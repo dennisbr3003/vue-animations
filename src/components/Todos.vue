@@ -7,11 +7,13 @@
       placeholder="Add a new todo..."
     />
     <div v-if="todos.length">
-      <ul>
+      <!-- <ul> -->
+      <TransitionGroup tag="ul" name="list">
         <li v-for="todo in todos" :key="todo.id" @click="deleteTodo(todo.id)">
           {{ todo.text }}
         </li>
-      </ul>
+      </TransitionGroup>
+      <!-- </ul> -->
     </div>
     <div v-else>Woohoo, nothing left todo!</div>
   </div>
@@ -23,8 +25,9 @@ import { ref } from 'vue'
 export default {
   setup(props, { emit }) {
     const todos = ref([
-      { text: 'make the bed', id: 1 },
-      { text: 'play video games', id: 2 },
+      { text: 'Make the bed', id: 1 },
+      { text: 'Play video games', id: 2 },
+      { text: 'Do something useful', id: 3 },
     ])
     const newTodo = ref('')
 
@@ -79,4 +82,30 @@ export default {
   .todos li:hover {
     cursor: pointer;
   }
+
+/* list transition classes */
+
+.list-enter-from {
+  opacity: 0;
+  transform: scale(0.6, 0.1); /* the element(s) start at 60% of it's original size (width) and 10% of it's original height */
+}
+.list-enter-to {
+  opacity: 1;
+  transform: scale(1);
+}
+.list-enter-active {
+  transition: all 0.4s ease;
+}
+
+.list-leave-from {
+  opacity: 1;
+  transform: scale(1); /* the element(s) start at 60% of it's original size */
+}
+.list-leave-to {
+  opacity: 0;
+  transform: scale(0.6, 0.1);
+}
+.list-leave-active {
+  transition: all 0.4s ease;
+}
 </style>

@@ -10,6 +10,7 @@
     <Transition name="diok">
       <div v-if="showdiv">
         <h1>Hello Dennis</h1>
+        <div>Test 123</div>
       </div>
     </Transition>
     <button @click="showdiv=!showdiv" style="margin-top: 15px; padding: 5px 8px;">toggle</button>
@@ -116,16 +117,20 @@ export default {
     opacity: 1;
   }
   60% {
-    transform: translateX(8px);
+    /* transform: translateX(8px); */
+    transform:skewY(8deg)
   }
   70% {
-    transform: translateX(-8px);
+    /* transform: translateX(-8px); */
+    transform:skewY(-8deg)
   }
   80% {
-    transform: translateX(4px);
+    /* transform: translateX(4px); */
+    transform:skewY(4deg)
   }
   90% {
-    transform: translateX(-4px);
+    /* transform: translateX(-4px); */
+    transform:skewY(-4deg)
   }
   100% {
     transform: translateX(0);
