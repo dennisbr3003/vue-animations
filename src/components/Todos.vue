@@ -7,8 +7,8 @@
       placeholder="Add a new todo..."
     />
     <div v-if="todos.length">
-      <!-- <ul> -->
-      <TransitionGroup tag="ul" name="list">
+      <!-- <ul> -->        
+      <TransitionGroup tag="ul" name="list" appear>  <!-- appear prop is applying transition on page load it will use the enter classes -->
         <li v-for="todo in todos" :key="todo.id" @click="deleteTodo(todo.id)">
           {{ todo.text }}
         </li>
@@ -28,6 +28,7 @@ export default {
       { text: 'Make the bed', id: 1 },
       { text: 'Play video games', id: 2 },
       { text: 'Do something useful', id: 3 },
+      { text: 'Do something useful 2', id: 4 },
     ])
     const newTodo = ref('')
 
@@ -65,7 +66,7 @@ export default {
     margin-bottom: 20px;
   }
   .todos ul {
-    position: relative;
+    position: relative; /* essential for the move animation (class=list-leave-active) */
     padding: 0;
   }
   .todos li {
@@ -107,5 +108,10 @@ export default {
 }
 .list-leave-active {
   transition: all 0.4s ease;
+  position: absolute; /* <-- add this if you want the move class to also work when removing an item make sure the surrounding UL class is positioned relative */
+}
+/* this applies to transition groups only when a item is added it slides in */
+.list-move {
+  transition: all 0.3s ease;
 }
 </style>
