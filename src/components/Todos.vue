@@ -6,16 +6,18 @@
       @keypress.enter="addTodo"
       placeholder="Add a new todo..."
     />
-    <div v-if="todos.length">
-      <!-- <ul> -->        
-      <TransitionGroup tag="ul" name="list" appear>  <!-- appear prop is applying transition on page load it will use the enter classes -->
-        <li v-for="todo in todos" :key="todo.id" @click="deleteTodo(todo.id)">
-          {{ todo.text }}
-        </li>
-      </TransitionGroup>
-      <!-- </ul> -->
-    </div>
-    <div v-else>Woohoo, nothing left todo!</div>
+    <Transition name="todolist" mode="out-in">
+      <div v-if="todos.length">
+        <!-- <ul> -->        
+        <TransitionGroup tag="ul" name="list" appear>  <!-- appear prop is applying transition on page load it will use the enter classes -->
+          <li v-for="todo in todos" :key="todo.id" @click="deleteTodo(todo.id)">
+            {{ todo.text }}
+          </li>
+        </TransitionGroup>
+        <!-- </ul> -->
+      </div>
+      <div v-else>Woohoo, nothing left todo!</div>
+    </Transition>  
   </div>
 </template>
 
@@ -113,5 +115,20 @@ export default {
 /* this applies to transition groups only when a item is added it slides in */
 .list-move {
   transition: all 0.3s ease;
+}
+
+/* switch transitions */
+
+.todolist-enter-from, .todolist-leave-to {
+  opacity: 0;
+  transform: translateY(20px)
+}
+/* this one could go */
+.todolist-enter-to, .todolist-leave-from {
+  opacity: 1;
+  transform: translateY(0)
+}
+.todolist-enter-active, .todolist-leave-active {
+  transition: all 0.5s ease;
 }
 </style>
