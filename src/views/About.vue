@@ -1,16 +1,20 @@
 <template>
   <div class="about">
+    <!--  ep-10
+      @after-enter="afterEnter"
+      @before-leave="beforeLeave"
+      @leave="leave"
+      @after-leave="afterLeave"
+    -->
     <Transition 
       name="fade" 
       appear
       @before-enter="beforeEnter"
       @enter="enter"
       @after-enter="afterEnter"
-      @before-leave="beforeLeave"
-      @leave="leave"
-      @after-leave="afterLeave"
       >
-      <h1 v-if="showTitle">About</h1>
+      <!-- ep-10 <h1 v-if="showTitle">About</h1> -->
+      <h1>About</h1>
     </Transition>
     <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Cum aperiam officia possimus delectus inventore quod quisquam culpa voluptas iusto, quae maiores quo dolorum, corporis laboriosam a dolore consequatur assumenda nam!</p>
     <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Cum aperiam officia possimus delectus inventore quod quisquam culpa voluptas iusto, quae maiores quo dolorum, corporis laboriosam a dolore consequatur assumenda nam!</p>
@@ -19,32 +23,57 @@
 </template>
 
 <script>
-import { ref } from 'vue'
+// import { ref } from 'vue'
+import gsap from 'gsap'
 export default {
   setup() {
 
-    const showTitle=ref(true)
+    // const showTitle=ref(true)
 
     const beforeEnter = (el) => {
-      console.log('before enter', el)
+      console.log('before enter - set initial state')
+      el.style.transform = 'translateY(-140px)' // move out of the window (to the top)
+      el.style.opacity = 0
     }
-    const enter = (el) => {
-      console.log('enter', el)
+
+    const enter = (el, done) => {
+      console.log('starting to enter - making transition')      
+      gsap.to(el, {
+        y: 0, // translate Y to 0 = original position
+        opacity: 1,
+        duration: 2, // seconds
+        ease: 'bounce.out',
+        onComplete: done // needed to tell vue the animation is done or it will fire afterEnter to soon
+      })
     }
+
     const afterEnter = (el) => {
-      el.style.color='red'
-      setTimeout(()=> showTitle.value=false, 3000)
+      console.log('after enter')
     }
-    const beforeLeave = (el) => {
-      console.log('before leave', el)
-    }
-    const leave = (el) => {
-      el.style.animation="shrink 2s ease"      
-    }
-    const afterLeave = (el) => {
-      showTitle.value=true
-    }    
-    return { showTitle, beforeEnter, enter, afterEnter, beforeLeave, leave, afterLeave }
+
+    // const beforeEnter = (el) => {
+    //   console.log('before enter', el)
+    // }
+    // const enter = (el) => {
+    //   console.log('enter', el)
+    // }
+    // const afterEnter = (el) => {
+    //   el.style.color='red'
+    //   setTimeout(()=> showTitle.value=false, 3000)
+    // }
+    // const beforeLeave = (el) => {
+    //   console.log('before leave', el)
+    // }
+    // const leave = (el) => {
+    //   el.style.animation="shrink 2s ease"      
+    // }
+    // const afterLeave = (el) => {
+    //   showTitle.value=true
+    // }    
+    // return { showTitle, beforeEnter, enter, afterEnter, beforeLeave, leave, afterLeave }
+
+    return { beforeEnter, enter, afterEnter}
+
   }
 }
 </script>
@@ -54,7 +83,7 @@ export default {
     max-width: 600px;
     margin: 20px auto;
   }
-
+/* (ep-10)
   .fade-enter-from {
     opacity: 0;
   }
@@ -106,5 +135,5 @@ export default {
       opacity: 0;
       transform: scale(1, 0); 
     }    
-  }
+  } */
 </style>
