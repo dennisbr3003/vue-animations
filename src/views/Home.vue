@@ -89,15 +89,12 @@ export default {
     }
 
     const afterEnter = (el) => {
-      console.log('after enter')
     }
 
     const beforeEnter1 = (el) => {
-      console.log('before enter 1')
       el.style.transform = 'scale(1, 0)'
     }
     const enter1 = (el, done) => {
-      console.log('1')
       gsap.to(el, {
         duration: 1, // seconds
         scaleX: 1,
@@ -122,13 +119,11 @@ export default {
     }
     
     const beforeEnter2 = (el) => {
-      console.log('before enter 1')
       el.style.transform = 'scaleX(0)'
       el.style.opacity = 0
     }
 
     const enter2 = (el, done) => {
-      console.log('1')
       gsap.to(el, {
         duration: 2.3, // seconds
         scaleX: 1,
