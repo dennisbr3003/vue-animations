@@ -32,19 +32,17 @@ export default {
       console.log('enter', el)
     }
     const afterEnter = (el) => {
-      console.log('after enter - run timeout function', el)
       el.style.color='red'
       setTimeout(()=> showTitle.value=false, 3000)
     }
     const beforeLeave = (el) => {
-      el.style.color='pink'
       console.log('before leave', el)
     }
     const leave = (el) => {
-      console.log('leave', el)
+      el.style.animation="shrink 2s ease"      
     }
     const afterLeave = (el) => {
-      console.log('after leave', el)
+      showTitle.value=true
     }    
     return { showTitle, beforeEnter, enter, afterEnter, beforeLeave, leave, afterLeave }
   }
@@ -63,10 +61,50 @@ export default {
   .fade-enter-active {
     transition: opacity 3s ease;
   }
-  .fade-leave-to {
-    opacity: 0; 
-  }
-  .fade-leave-active {
-    transition: opacity 3s ease;
+  @keyframes shrink {
+    0% {
+      opacity: 1;
+      transform: scale(1, 1); 
+    }
+    10% {
+      opacity: 0.90;
+      transform: scale(1, 0.9); 
+    }
+    20% {
+      opacity: 0.80;
+      transform: scale(1, 0.8); 
+    }    
+    30% {
+      opacity: 0.70;
+      transform: scale(1, 0.7); 
+    }    
+    40% {
+      opacity: 0.60;
+      transform: scale(1, 0.6); 
+    }    
+    50% {
+      opacity: 0.50;
+      transform: scale(1, 0.5); 
+    }    
+    60% {
+      opacity: 0.40;
+      transform: scale(1, 0.4); 
+    }    
+    70% {
+      opacity: 0.30;
+      transform: scale(1, 0.3); 
+    }    
+    80% {
+      opacity: 0.20;
+      transform: scale(1, 0.2); 
+    }    
+    90% {
+      opacity: 0.10;
+      transform: scale(1, 0.1); 
+    }    
+    100% {
+      opacity: 0;
+      transform: scale(1, 0); 
+    }    
   }
 </style>
